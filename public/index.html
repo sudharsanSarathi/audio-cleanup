@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Noise Cleanup - Professional Audio & Video Enhancement</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-microphone-alt"></i>
+                    <h1>AudioClean Pro</h1>
+                </div>
+                <p class="tagline">Professional Audio & Video Noise Removal & Enhancement</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-card">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Upload Your Audio or Video File</h3>
+                        <p>Drag and drop your file here, or click to browse</p>
+                        <p class="file-types">Supported: MP3, WAV, MP4, AVI, MOV, WMV, FLV (Max 100MB)</p>
+                        <input type="file" id="fileInput" accept="audio/*,video/*" style="display: none;">
+                        <button class="browse-btn" onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-folder-open"></i>
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="settings-section" id="settingsSection" style="display: none;">
+                <div class="settings-card">
+                    <h3><i class="fas fa-cog"></i> Processing Settings</h3>
+                    
+                    <div class="setting-group">
+                        <label for="enhancementLevel">Enhancement Level:</label>
+                        <select id="enhancementLevel" class="setting-input">
+                            <option value="low">Low (Light Enhancement)</option>
+                            <option value="medium" selected>Medium (Balanced)</option>
+                            <option value="high">High (Maximum Enhancement)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="processingMode">Processing Mode:</label>
+                        <select id="processingMode" class="setting-input">
+                            <option value="professional">Professional (AssemblyAI)</option>
+                            <option value="free">Free (FFmpeg)</option>
+                        </select>
+                    </div>
+
+                    <div class="file-info" id="fileInfo">
+                        <h4><i class="fas fa-info-circle"></i> File Information</h4>
+                        <div id="fileDetails"></div>
+                    </div>
+
+                    <button class="process-btn" id="processBtn">
+                        <i class="fas fa-magic"></i>
+                        Start Processing
+                    </button>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-card">
+                    <h3><i class="fas fa-spinner fa-spin"></i> Processing Your File</h3>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    
+                    <div class="progress-text" id="progressText">Initializing...</div>
+                    
+                    <div class="processing-steps">
+                        <div class="step active" id="step1">
+                            <i class="fas fa-upload"></i>
+                            <span>Uploading</span>
+                        </div>
+                        <div class="step" id="step2">
+                            <i class="fas fa-cogs"></i>
+                            <span>Processing</span>
+                        </div>
+                        <div class="step" id="step3">
+                            <i class="fas fa-download"></i>
+                            <span>Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-card">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Processing Complete!</h3>
+                    <p>Your enhanced file is ready for download.</p>
+                    
+                    <div class="file-stats">
+                        <div class="stat">
+                            <span class="stat-label">Original Size:</span>
+                            <span class="stat-value" id="originalSize">-</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Enhanced Size:</span>
+                            <span class="stat-value" id="enhancedSize">-</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Processing Time:</span>
+                            <span class="stat-value" id="processingTime">-</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="download-btn" id="downloadBtn">
+                            <i class="fas fa-download"></i>
+                            Download Enhanced File
+                        </button>
+                        <button class="new-file-btn" onclick="resetApp()">
+                            <i class="fas fa-plus"></i>
+                            Process Another File
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2>Why Choose AudioClean Pro?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-magic"></i>
+                    <h3>AI-Powered Enhancement</h3>
+                    <p>Advanced noise reduction and audio enhancement using cutting-edge AI technology.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Lightning Fast</h3>
+                    <p>Process your files in seconds with our optimized processing pipeline.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure & Private</h3>
+                    <p>Your files are automatically deleted after processing. We never store your content.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Multi-Format Support</h3>
+                    <p>Support for all major audio and video formats with professional quality output.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 AudioClean Pro. Professional audio and video enhancement made simple.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
