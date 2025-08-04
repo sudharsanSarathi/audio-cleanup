@@ -17,7 +17,20 @@ const downloadBtn = document.getElementById('downloadBtn');
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     initializeEventListeners();
+    handleGitHubPagesRouting();
 });
+
+// Handle GitHub Pages routing for SPA
+function handleGitHubPagesRouting() {
+    // Check if we're on GitHub Pages and need to redirect
+    if (window.location.search.startsWith('?/')) {
+        // Remove the redirect query string and update the URL
+        var redirect = window.location.search.slice(2).replace(/~and~/g, '&');
+        window.history.replaceState(null, null, 
+            window.location.pathname.slice(0, -1) + redirect + window.location.hash
+        );
+    }
+}
 
 function initializeEventListeners() {
     // File input change
