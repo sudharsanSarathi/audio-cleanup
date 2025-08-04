@@ -17,6 +17,7 @@
     "assemblyai": "^4.0.0",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "fluent-ffmpeg": "^2.1.2",
+    "cloudinary": "^1.41.0",
     "uuid": "^9.0.1",
     "express-rate-limit": "^7.1.5",
     "helmet": "^7.1.0",

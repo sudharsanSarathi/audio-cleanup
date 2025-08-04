@@ -141,7 +141,6 @@ function startProcessing() {
     // Get processing settings
     const enhancementLevel = document.getElementById('enhancementLevel').value;
     const processingMode = document.getElementById('processingMode').value;
-    const useFreeProcessing = processingMode === 'free';
     
     // Show progress section
     showSection(progressSection);
@@ -151,7 +150,7 @@ function startProcessing() {
     const formData = new FormData();
     formData.append('file', selectedFile);
     formData.append('enhancementLevel', enhancementLevel);
-    formData.append('useFreeProcessing', useFreeProcessing);
+    formData.append('processingMode', processingMode);
     
     // Start processing
     processFile(formData);

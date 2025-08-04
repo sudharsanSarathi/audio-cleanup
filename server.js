@@ -11,6 +11,7 @@ require('dotenv').config();
 
 const audioProcessor = require('./services/audioProcessor');
 const videoProcessor = require('./services/videoProcessor');
+const cloudinaryProcessor = require('./services/cloudinaryProcessor');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -84,7 +85,7 @@ app.post('/api/process', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    const { enhancementLevel = 'medium', useFreeProcessing = false } = req.body;
+    const { enhancementLevel = 'medium', processingMode = 'cloudinary' } = req.body;
     const filePath = req.file.path;
     const fileType = req.file.mimetype;
     const isVideo = fileType.startsWith('video/');
@@ -94,10 +95,29 @@ app.post('/api/process', upload.single('file'), async (req, res) => {
     fs.ensureDirSync(outputDir);
 
     let result;
-    if (isVideo) {
-      result = await videoProcessor.processVideo(filePath, outputDir, enhancementLevel, useFreeProcessing);
+    
+    // Choose processing method based on mode
+    if (processingMode === 'cloudinary') {
+      // Use Cloudinary (cloud-based, no FFmpeg needed)
+      if (isVideo) {
+        result = await cloudinaryProcessor.processVideo(filePath, outputDir, enhancementLevel);
+      } else {
+        result = await cloudinaryProcessor.processAudio(filePath, outputDir, enhancementLevel);
+      }
+    } else if (processingMode === 'assemblyai') {
+      // Use AssemblyAI (AI-powered)
+      if (isVideo) {
+        result = await videoProcessor.processVideo(filePath, outputDir, enhancementLevel, false);
+      } else {
+        result = await audioProcessor.processAudio(filePath, outputDir, enhancementLevel, false);
+      }
     } else {
-      result = await audioProcessor.processAudio(filePath, outputDir, enhancementLevel, useFreeProcessing);
+      // Use FFmpeg (local processing)
+      if (isVideo) {
+        result = await videoProcessor.processVideo(filePath, outputDir, enhancementLevel, true);
+      } else {
+        result = await audioProcessor.processAudio(filePath, outputDir, enhancementLevel, true);
+      }
     }
 
     // Clean up uploaded file
